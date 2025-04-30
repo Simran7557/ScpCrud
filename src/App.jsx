@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   async function fetchRecords() {
-    const { data, error } = await supabase.from('truck').select();
+    const { data, error } = await supabase.from('Your_table_name').select();
     if (!error) setRecords(data);
   }
 
@@ -29,21 +29,21 @@ function App() {
   // Refresh list of records (fetchRecords) after new record submitted
   // Resets the form to empty
   async function handleSubmit() {
-    await supabase.from('truck').insert([form]);
+    await supabase.from('Your_table_name').insert([form]);
     fetchRecords();
     setForm({ model: '', tagline: '', content: '', image: '' });
   }
 
   // Delete record from Supabase then refresh records after deletion
   async function handleDelete(id) {
-    await supabase.from('truck').delete().eq('id', id);
+    await supabase.from('Your_table_name').delete().eq('id', id);
     fetchRecords();
   }
 
   // Send request to Supabase to update row / record in table
   // Then refetch all records from table (fetchRecords)
   async function handleEdit(id) {
-    await supabase.from('truck').update(form).eq('id', id);
+    await supabase.from('Your_table_name').update(form).eq('id', id);
     fetchRecords();
     setForm({ model: '', tagline: '', content: '', image: '' });
   }
