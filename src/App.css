@@ -10,6 +10,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: auto;
+  margin: 10px;
 }
 
 /* Global Styles */
@@ -19,7 +21,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 320px;
   min-height: 100vh;
   background-color: #121212;
   color: #ffffff;
@@ -28,12 +29,15 @@ body {
   font-family: inherit;
 }
 
-.app{
+.app {
   max-width: 1150px;
+  width: auto;
+  margin: 10px;
 }
 
-.form{
+.form {
   max-width: 1100px;
+  width: auto;
 }
 
 /* Headings */
@@ -108,7 +112,7 @@ nav ul {
 }
 
 nav ul li {
-  width: 90%;
+  width: auto;
   padding: 10px;
   cursor: pointer;
   background-color: #333;
@@ -139,13 +143,13 @@ div {
   padding: 20px;
   background-color: #1e1e1e;
   border-radius: 10px;
-  width: 100%;
+  width: auto;
 }
 
 /* Images */
 img {
   display: block;
-  width: 100%;
+  width: 80%;
   max-width: 400px;
   margin: 20px auto;
   border-radius: 10px;
@@ -215,13 +219,29 @@ button.secondary:hover {
 
   nav ul li {
     display: block;
-    width: 100%;
     text-align: center;
   }
 
-  div {
-    width: 95%;
+  .detail {
+    margin: auto;
   }
+
+  :root {
+    margin: auto;
+    padding: 1px;
+  }
+
+  .app {
+    margin: auto;
+    padding: 1px;
+    width: 80vw;
+  }
+
+  body {
+    margin: auto;
+    padding: 1px;
+  }
+
 }
 
 @media (prefers-color-scheme: light) {
@@ -250,4 +270,6 @@ button.secondary:hover {
     text-transform: none;
     letter-spacing: normal;
   }
+
+
 }
