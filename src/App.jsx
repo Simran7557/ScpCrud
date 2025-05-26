@@ -5,10 +5,9 @@ import './App.css';
 function App() {
   const [records, setRecords] = useState([]);
   const [view, setView] = useState('home');
-  const [selectedTitle, setSelectedTitle] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [form, setForm] = useState({ Title: '', Class: '', Image: '', Containment: '', Description: '' });
 
-  // 🔧 Fix: Add isOpen state
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -45,20 +44,17 @@ function App() {
     setForm({ Title: '', Class: '', Image: '', Containment: '', Description: '' });
   }
 
-
   return (
     <div className="app">
-      {/* Nav section. Loop through each record and render a button using the model name */}
       <nav>
         <h2>SCP Foundation</h2>
         <button onClick={toggleMenu}>
           {isOpen ? 'Close Menu' : 'Open Menu'}
         </button>
-        {/* Only show menu when isOpen is true */}
         {isOpen && (
           <ul className={isOpen ? 'menu open' : 'menu closed'}>
-            {records.map((rec) => (
-              <li key={rec.id} onClick={() => { setSelectedTitle(rec); setView('detail'); setIsOpen(false); }}>
+            {records.map((rec, idx) => (
+              <li key={rec.id} onClick={() => { setSelectedIndex(idx); setView('detail'); setIsOpen(false); }}>
                 {rec.Title}
               </li>
             ))}
@@ -67,22 +63,35 @@ function App() {
         )}
       </nav>
 
-
-
-      {/* Display record section (detail view mode)*/}
+      {/* Detail View */}
       {
-        view === 'detail' && selectedTitle && (
+        view === 'detail' && selectedIndex !== null && (
           <div className="detail">
-            <h2>{selectedTitle.Title}</h2>
-            <h4>{selectedTitle.Class}</h4>
-            <img src={selectedTitle.Image} alt={selectedTitle.Title} />
-            <p>{selectedTitle.Containment}</p>
-            <p>{selectedTitle.Description}</p>
+            <h2>{records[selectedIndex].Title}</h2>
+            <h4>{records[selectedIndex].Class}</h4>
+            <img src={records[selectedIndex].Image} alt={records[selectedIndex].Title} />
+            <p>{records[selectedIndex].Containment}</p>
+            <p>{records[selectedIndex].Description}</p>
+
+            <div className="navigation-buttons">
+              <button
+                onClick={() => setSelectedIndex((prev) => prev - 1)}
+                disabled={selectedIndex === 0}
+              >
+                Back
+              </button>
+              <button
+                onClick={() => setSelectedIndex((prev) => prev + 1)}
+                disabled={selectedIndex === records.length - 1}
+              >
+                Next
+              </button>
+            </div>
           </div>
         )
       }
 
-      {/* Admin section CRUD functions* (admin view mode)*/}
+      {/* Admin View */}
       {
         view === 'admin' && (
           <div className="admin">
@@ -90,7 +99,7 @@ function App() {
             <table>
               <thead>
                 <tr>
-                  <th>Title</th><th>Class</th><th>Image</th><th>Containment</th><th>Description</th><th>Actions</th>
+                  <th>Title</th><th>Class</th><th>Containment</th><th>Description</th><th>Image</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -125,9 +134,8 @@ function App() {
           </div>
         )
       }
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
